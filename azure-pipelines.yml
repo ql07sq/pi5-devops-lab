@@ -1,1 +1,23 @@
+trigger:
+- main
 
+pool:
+  name: Default
+  demands:
+  - Agent.Name -equals BEAT5
+
+steps:
+- checkout: self
+
+- bash: |
+    echo "AZ-400 Pi5 DevOps Lab"
+    echo "Hostname:"
+    hostname
+
+    echo "Architectuur:"
+    uname -m
+
+    echo "OS:"
+    cat /etc/os-release
+
+  displayName: 'Controle Raspberry Pi'
