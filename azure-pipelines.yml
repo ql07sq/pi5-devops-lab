@@ -30,3 +30,16 @@ steps:
       -i inventory.ini \
       provision.yml
   displayName: 'Provision Raspberry Pi'
+
+- bash: |
+    set -e
+
+    echo "Docker versie:"
+    docker --version
+
+    echo "Docker Compose versie:"
+    docker compose version
+
+    echo "Docker service status:"
+    systemctl is-active docker
+  displayName: 'Controle Docker installatie'
