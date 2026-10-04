@@ -3,19 +3,30 @@ trigger:
 
 pool:
   name: Default
+  demands:
+  - Agent.Name -equals PI5-LAB
 
 steps:
 - checkout: self
 
 - bash: |
-    echo "AZ-400 Pi5 DevOps Lab"
-    echo "Hostname:"
-    hostname
+    set -e
 
-    echo "Architectuur:"
-    uname -m
+    if ! command -v ansible-playbook >/dev/null 2>&1; then
+      echo "Ansible ontbreekt, installeren..."
+      sudo apt-get update
+      sudo apt-get install -y ansible
+    fi
 
-    echo "OS:"
-    cat /etc/os-release
+    ansible --version
+  displayName: 'Controleer Ansible'
 
-  displayName: 'Controle Raspberry Pi'
+- bash: |
+    set -e
+
+    cd ansible
+
+    ansible-playbook \
+      -i inventory.ini \
+      provision.yml
+  displayName: 'Provision Raspberry Pi'
