@@ -1,1 +1,26 @@
+---
+- name: Create base directory
+  ansible.builtin.file:
+    path: /srv/pi5-lab
+    state: directory
+    owner: ql07sq
+    group: ql07sq
+    mode: "0755"
 
+- name: Create persistent application directories
+  ansible.builtin.file:
+    path: "/srv/pi5-lab/{{ item }}"
+    state: directory
+    owner: ql07sq
+    group: ql07sq
+    mode: "0755"
+  loop:
+    - certs
+    - step-ca
+    - adguard
+    - elasticsearch
+    - kibana
+    - logstash
+    - grafana
+    - prometheus
+    - backups
