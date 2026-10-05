@@ -43,3 +43,21 @@ steps:
     echo "Docker service status:"
     systemctl is-active docker
   displayName: 'Controle Docker installatie'
+
+- bash: |
+    set -e
+
+    cd compose
+
+    echo "Docker Compose configuratie controleren..."
+    docker compose config
+
+    echo "Images ophalen..."
+    docker compose pull
+
+    echo "Containers starten..."
+    docker compose up -d
+
+    echo "Containerstatus:"
+    docker compose ps
+  displayName: 'Deploy application stack'
