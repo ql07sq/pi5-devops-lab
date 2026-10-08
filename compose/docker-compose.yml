@@ -1,4 +1,15 @@
 services:
+  step-ca:
+    image: smallstep/step-ca:latest
+    container_name: step-ca
+    restart: unless-stopped
+
+    ports:
+      - "9000:9000"
+
+    volumes:
+      - /srv/pi5-lab/step-ca:/home/step
+
   adguard:
     image: adguard/adguardhome:latest
     container_name: adguard
@@ -8,7 +19,9 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "80:80/tcp"
+      - "443:443/tcp"
 
     volumes:
       - /srv/pi5-lab/adguard/work:/opt/adguardhome/work
       - /srv/pi5-lab/adguard/conf:/opt/adguardhome/conf
+      - /srv/pi5-lab/certs/adguard:/certs:ro
