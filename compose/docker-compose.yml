@@ -19,3 +19,15 @@ services:
       - "9000:9000"
     volumes:
       - /srv/pi5-lab/step-ca:/home/step
+  step-client:
+    image: smallstep/step-cli:latest
+    container_name: step-client
+    restart: "no"
+
+    volumes:
+      - /srv/pi5-lab/step-ca/certs:/home/step/ca-certs:ro
+      - /srv/pi5-lab/step-ca/secrets:/home/step/secrets:ro
+      - /srv/pi5-lab/certs/adguard:/certs
+
+    networks:
+      - default
