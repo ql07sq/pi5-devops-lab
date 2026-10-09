@@ -15,7 +15,7 @@ services:
       - /srv/pi5-lab/adguard/work:/opt/adguardhome/work
       - /srv/pi5-lab/adguard/conf:/opt/adguardhome/conf
       - /srv/pi5-lab/certs/adguard:/certs:ro
-
+      - /srv/pi5-lab/certs/nginx:/certs-nginx
     networks:
       - default
 
