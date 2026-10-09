@@ -23,7 +23,9 @@
     - logstash
     - grafana
     - prometheus
+    - ntopng
     - backups
+
 - name: Create AdGuard directories
   ansible.builtin.file:
     path: "/srv/pi5-lab/adguard/{{ item }}"
