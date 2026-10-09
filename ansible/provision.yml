@@ -4,5 +4,6 @@
   become: true
 
   roles:
+    - network
     - docker
     - filesystem
