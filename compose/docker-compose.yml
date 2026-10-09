@@ -54,3 +54,17 @@ services:
 networks:
   default:
     name: pi5-lab
+    
+ntopng:
+  image: ntop/ntopng_arm64.dev:latest
+  container_name: ntopng
+  restart: unless-stopped
+
+  network_mode: host
+
+  volumes:
+    - /srv/pi5-lab/ntopng:/var/lib/ntopng
+
+  command:
+    - "-i"
+    - "eth0"
