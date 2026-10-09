@@ -9,12 +9,11 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
 
-
     volumes:
       - /srv/pi5-lab/adguard/work:/opt/adguardhome/work
       - /srv/pi5-lab/adguard/conf:/opt/adguardhome/conf
       - /srv/pi5-lab/certs/adguard:/certs:ro
-      - /srv/pi5-lab/certs/nginx:/certs-nginx
+
     networks:
       - default
 
@@ -46,6 +45,30 @@ services:
       - /srv/pi5-lab/step-ca/secrets:/home/step/secrets:ro
       - /srv/pi5-lab/certs/adguard:/certs
       - /srv/pi5-lab/certs/nginx:/certs-nginx
+
+    networks:
+      - default
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+
+    volumes:
+      - /srv/pi5-lab/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /srv/pi5-lab/certs/nginx:/etc/nginx/certs:ro
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    depends_on:
+      - adguard
+
     networks:
       - default
 
