@@ -46,7 +46,7 @@ services:
       - /srv/pi5-lab/step-ca/certs:/home/step/ca-certs:ro
       - /srv/pi5-lab/step-ca/secrets:/home/step/secrets:ro
       - /srv/pi5-lab/certs/adguard:/certs
-
+      - /srv/pi5-lab/certs/nginx:/certs-nginx
     networks:
       - default
 
